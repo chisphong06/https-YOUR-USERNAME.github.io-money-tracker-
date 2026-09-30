@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>Money Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>Money Tracker</h1>
+        <p id="monthLabel"></p>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="ตั้งค่า">⚙</button>
+    </header>
+
+    <section class="summary">
+      <div class="balance">
+        <span>เงินคงเหลือ</span>
+        <strong id="balance">฿0</strong>
+      </div>
+      <div class="summary-grid">
+        <div><span>เงินเข้า</span><b id="income">฿0</b></div>
+        <div><span>ใช้จ่าย</span><b id="expense">฿0</b></div>
+        <div><span>ออม</span><b id="saving">฿0</b></div>
+        <div><span>ลงทุน</span><b id="investing">฿0</b></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><h2>ค่าใช้จ่าย</h2><button id="viewAllBtn">ดูทั้งหมด</button></div>
+      <div id="categoryList" class="category-list"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><h2>เป้าหมาย</h2><button id="addGoalBtn">＋ เพิ่ม</button></div>
+      <div id="goalList" class="goal-list"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><h2>รายการล่าสุด</h2><button id="historyBtn">ทั้งหมด</button></div>
+      <div id="recentList" class="transaction-list"></div>
+    </section>
+
+    <button class="fab" id="addBtn">＋</button>
+  </main>
+
+  <dialog id="transactionDialog">
+    <form method="dialog" id="transactionForm" class="modal">
+      <div class="modal-head"><h2>เพิ่มรายการ</h2><button value="cancel" class="close">×</button></div>
+      <label>จำนวนเงิน<input id="amount" type="number" min="0" step="0.01" required placeholder="250"></label>
+      <label>ประเภท
+        <select id="type">
+          <option value="income">รายรับ</option>
+          <option value="expense" selected>รายจ่าย</option>
+          <option value="saving">ออม</option>
+          <option value="investing">ลงทุน</option>
+        </select>
+      </label>
+      <label>หมวด
+        <select id="category"></select>
+      </label>
+      <label>รายละเอียด<input id="note" maxlength="80" placeholder="เช่น ข้าวเย็น"></label>
+      <label>วันที่<input id="date" type="date" required></label>
+      <button class="primary" value="default">บันทึก</button>
+    </form>
+  </dialog>
+
+  <dialog id="historyDialog">
+    <section class="modal">
+      <div class="modal-head"><h2>รายการทั้งหมด</h2><button class="close" id="closeHistory">×</button></div>
+      <div class="filters">
+        <input id="search" placeholder="ค้นหา...">
+        <select id="monthFilter"></select>
+      </div>
+      <div id="allTransactions" class="transaction-list"></div>
+    </section>
+  </dialog>
+
+  <dialog id="goalDialog">
+    <form method="dialog" id="goalForm" class="modal">
+      <div class="modal-head"><h2>เพิ่มเป้าหมาย</h2><button value="cancel" class="close">×</button></div>
+      <label>ชื่อเป้าหมาย<input id="goalName" required placeholder="เงินฉุกเฉิน"></label>
+      <label>จำนวนเป้าหมาย<input id="goalTarget" type="number" min="1" required placeholder="60000"></label>
+      <button class="primary" value="default">สร้างเป้าหมาย</button>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog">
+    <section class="modal">
+      <div class="modal-head"><h2>ตั้งค่า</h2><button class="close" id="closeSettings">×</button></div>
+      <button class="secondary" id="exportBtn">Export ข้อมูล</button>
+      <label class="file-btn">Import ข้อมูล<input id="importFile" type="file" accept=".json"></label>
+      <button class="danger" id="clearBtn">ล้างข้อมูลทั้งหมด</button>
+      <p class="muted">ข้อมูลเก็บไว้ใน Browser ของอุปกรณ์นี้ แนะนำ Export สำรองเป็นระยะ</p>
+    </section>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
